@@ -24,14 +24,15 @@ export default function ApiTable() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer your-token-here", // or "x-api-key": "your-api-key"
       },
+      credentials: "include",
     });
 
     if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
 
     const json = await res.json();
-    setData(json);
+    console.log("this is json", json);
+    setData(json.data);
   } catch (err) {
     console.error(err);
     setError("Failed to load data.");
