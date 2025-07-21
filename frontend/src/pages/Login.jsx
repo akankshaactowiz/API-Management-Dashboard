@@ -13,11 +13,13 @@ const Login = () => {
     e.preventDefault();
     setMsg('');
     try {
-      const res = await fetch('http://172.28.171.87:5000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch('http://172.28.171.64:5000/api/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(form),
+  credentials: 'include', 
+});
+
 
       const data = await res.json();
       if (res.ok) {
@@ -57,6 +59,7 @@ const Login = () => {
           />
           <button
             type="submit"
+            onSubmit={handleSubmit}
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
           >
             Login
