@@ -16,9 +16,19 @@ const addkey = async (req, res) => {
   try {
     const keyExist = await key_table.findOne({ key });
     if (keyExist) return res.status(400).json({ msg: "Key already exists" });
-    const newkey = new key_table({ name, key, limit });
+    // const newkey = new key_table({ name, key, limit });
+    // await newkey.save();
+    // res.status(201).json({ msg: "Key added successfully" });
+    const newkey = new key_table({
+      name,
+      key,
+      limit,
+      status,
+      usage: 0, // default usage
+    });
+
     await newkey.save();
-    res.status(201).json({ msg: "Key added successfully" });
+    res.status(201).json(newkey); 
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
   }
