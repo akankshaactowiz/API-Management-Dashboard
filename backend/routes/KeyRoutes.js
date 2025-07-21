@@ -8,7 +8,7 @@ const {
 } = require("../controllers/KeyControllers");
 const protect = require("../middleware/AuthMiddleware");
 
-router.get("/getkey", protect, getkey);
+router.get("/getkey", getkey);
 router.post("/addkey", protect, addkey);
 router.put("/updatekey/:id", protect, updatekey);
 router.delete("/deletekey/:id", protect, deletekey);

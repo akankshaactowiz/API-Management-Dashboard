@@ -11,14 +11,14 @@ dotenv.config();
 
 const app = express();
 app.use(cookieParser());
-const FRONTEND_URL = process.env.FRONTEND_URL;
+app.use(express.json());
+
 app.use(
   cors({
-    origin: { FRONTEND_URL },
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
-app.use(express.json());
 
 connectDB(); // DB connect
 
