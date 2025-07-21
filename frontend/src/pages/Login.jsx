@@ -1,32 +1,39 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [msg, setMsg] = useState('');
+  const navigate = useNavigate();
+
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
     setMsg('');
     try {
       const res = await fetch('http://172.28.171.64:5000/api/login', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(form),
-  credentials: 'include', 
+  credentials: 'include',
 });
+
+
 
 
       const data = await res.json();
       if (res.ok) {
-        setMsg('✅ Login successful');
-        // optionally redirect or save user data here
-      } else {
-        setMsg(`❌ ${data.msg}`);
+  setMsg('✅ Login successful');
+  setTimeout(() => {
+    navigate('/dashboard'); // Redirect to dashboard
+  }, 1000); // Small delay so user sees success message
+} else {
+        setMsg(`❌ ${data.message}`);
       }
     } catch (err) {
       setMsg('❌ Error connecting to server');
